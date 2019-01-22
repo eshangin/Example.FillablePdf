@@ -1,31 +1,135 @@
-﻿@{
+﻿@model Test1FormModel
+
+@{
     ViewBag.Title = "Home Page";
+    var countries = from c in "Austria, Belgium, Britain, Bulgaria, Croatia, Cyprus, Czech-Republic, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Lithuania, Luxembourg, Malta, Netherlands, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden".Split(',')
+                    select new SelectListItem() { Text = c.Trim(), Value = c.Trim() };
+    var genders = from c in "Man, Woman".Split(',')
+                  select new SelectListItem() { Text = c.Trim(), Value = c.Trim() };
+    var colors = from c in "Black, Brown, Red, Orange, Yellow, Green, Blue, Violet, Grey, White".Split(',')
+                 select new SelectListItem() { Text = c.Trim(), Value = c.Trim() };
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+<a href="~/pdf-templates/test1.pdf" target="_blank">Check PDF template</a>
+<hr />
+<h2>Fill PDF fields</h2>
+<form action="/Home/FillPdf" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.GivenName)
+                @Html.TextBoxFor(m => m.GivenName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FamilyName)
+                @Html.TextBoxFor(m => m.FamilyName, new { @class = "form-control" })
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address1)
+                @Html.TextBoxFor(m => m.Address1, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Address2)
+                @Html.TextBoxFor(m => m.Address2, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.HouseNumber)
+                @Html.TextBoxFor(m => m.HouseNumber, new { @class = "form-control" })
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.City)
+                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Country)
+                @Html.DropDownListFor(m => m.Country, countries, "-- Not Selected --", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Postcode)
+                @Html.TextBoxFor(m => m.Postcode, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>        
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Gender)
+                @Html.DropDownListFor(m => m.Gender, genders, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Height)
+                @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
+            </div>
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.DrivingLicense) @Html.DisplayNameFor(m => m.DrivingLicense)
+                </label>
+            </div>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Lang1) @Html.DisplayNameFor(m => m.Lang1)
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Lang2) @Html.DisplayNameFor(m => m.Lang2)
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Lang3) @Html.DisplayNameFor(m => m.Lang3)
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Lang4) @Html.DisplayNameFor(m => m.Lang4)
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.Lang5) @Html.DisplayNameFor(m => m.Lang5)
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                @Html.LabelFor(m => m.FavColor)
+                @Html.DropDownListFor(m => m.FavColor, colors, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <hr />
+    <p>
+        <button class="btn btn-primary" href="https://go.microsoft.com/fwlink/?LinkId=301865">Submit</button>
+    </p>
+</form>
